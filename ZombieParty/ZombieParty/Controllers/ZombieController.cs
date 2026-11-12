@@ -177,5 +177,21 @@ namespace ZombieParty.Controllers
 
             return View(zombieVM);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> FavoritePost(int id, bool newFavorite)
+        {
+            var zombie = await _serviceZ.GetByIdAsync(id);
+
+            if (zombie != null)
+            {
+                zombie.IsFavorite = !zombie.IsFavorite;
+                _baseDonnees.Update(zombie);
+                await _baseDonnees.SaveChangesAsync();
+
+                return Json(zombie.IsFavorite);
+            }
+            return NotFound("Could not find zombie with id: " + id);
+        }
     }
 }
