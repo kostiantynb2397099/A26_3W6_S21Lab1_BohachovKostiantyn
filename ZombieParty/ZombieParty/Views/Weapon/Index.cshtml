@@ -76,3 +76,13 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $("tr.WeaponList")
+        .on("mouseenter", function() { $(this).addClass("highlight"); })
+        .on("mouseleave", function() { $(this).removeClass("highlight"); });
+    </script>
+}
+
