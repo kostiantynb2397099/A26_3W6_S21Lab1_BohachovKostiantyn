@@ -179,7 +179,7 @@ namespace ZombieParty.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> FavoritePost(int id, bool newFavorite)
+        public async Task<IActionResult> Favorite(int id, bool newFavorite)
         {
             var zombie = await _serviceZ.GetByIdAsync(id);
 
@@ -190,6 +190,18 @@ namespace ZombieParty.Controllers
                 await _baseDonnees.SaveChangesAsync();
 
                 return Json(zombie.IsFavorite);
+            }
+            return NotFound("Could not find zombie with id: " + id);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var zombie = await _serviceZ.GetByIdAsync(id);
+
+            if (zombie != null)
+            {
+                return PartialView("_ZombieDetails", zombie);
+
             }
             return NotFound("Could not find zombie with id: " + id);
         }
